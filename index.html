@@ -2,91 +2,76 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel Meteorológico GV</title>
-  <!-- Refresca la página cada hora -->
-  <meta http-equiv="refresh" content="3600">
+  <!-- Refresca automáticamente cada hora -->
+  <meta http-equiv="refresh" content="3600" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f2f5;
-      color: #333;
-    }
-    header {
-      background: #222;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      padding: 1rem;
-    }
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      overflow: hidden;
-    }
-    .card h2 {
-      margin: 0;
-      padding: 0.5rem 1rem;
-      background: #eee;
-      border-bottom: 1px solid #ccc;
-      font-size: 1.1rem;
-    }
-    iframe {
-      width: 100%;
-      height: 220px;
-      border: none;
-      display: block;
-    }
-    .windy iframe {
-      height: 450px;
-    }
+    body { background: #f0f2f5; color: #1e293b; }
+    header { background: #0f172a; color: #f1f5f9; }
+    iframe { display: block; width: 100%; border: none; }
   </style>
 </head>
-<body>
-  <header>
-    <h1>Panel Meteorológico GV</h1>
-    <p>Actualización automática cada hora</p>
+<body class="flex flex-col min-h-screen">
+  <header class="p-4 text-center">
+    <h1 class="text-2xl font-bold">Panel Meteorológico – Departamento de Operaciones Aéreas</h1>
+    <p class="text-sm text-gray-300">Actualización automática cada hora</p>
   </header>
 
-  <div class="container">
+  <main class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 p-4">
 
-    <!-- METAR Carrasco como referencia -->
-    <div class="card">
-      <h2>METAR Carrasco (SUMU) – Referencia</h2>
-      <iframe src="https://metar-taf.com/embed-info/SUMU" loading="lazy"></iframe>
-    </div>
+    <!-- Panel izquierdo: METARs y TAF -->
+    <section class="space-y-6">
 
-    <!-- METAR de los demás aeropuertos uruguayos -->
-    <div class="card"><h2>METAR Durazno (SUDU)</h2><iframe src="https://metar-taf.com/embed-info/SUDU" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Salto (SUSO)</h2><iframe src="https://metar-taf.com/embed-info/SUSO" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Rivera (SURV)</h2><iframe src="https://metar-taf.com/embed-info/SURV" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Melo (SUMO)</h2><iframe src="https://metar-taf.com/embed-info/SUMO" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Paysandú (SUPU)</h2><iframe src="https://metar-taf.com/embed-info/SUPU" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Colonia (SUCA)</h2><iframe src="https://metar-taf.com/embed-info/SUCA" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Punta del Este (SULS)</h2><iframe src="https://metar-taf.com/embed-info/SULS" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Treinta y Tres (SUTR)</h2><iframe src="https://metar-taf.com/embed-info/SUTR" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Tacuarembó (SUTB)</h2><iframe src="https://metar-taf.com/embed-info/SUTB" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Artigas (SUAG)</h2><iframe src="https://metar-taf.com/embed-info/SUAG" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Rocha (SURR)</h2><iframe src="https://metar-taf.com/embed-info/SURR" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR San Fernando (SADF)</h2><iframe src="https://metar-taf.com/embed-info/SADF" loading="lazy"></iframe></div>
-    <div class="card"><h2>METAR Ezeiza (SAEZ)</h2><iframe src="https://metar-taf.com/embed-info/SAEZ" loading="lazy"></iframe></div>
+      <!-- METARs Uruguay + Argentinas -->
+      <div class="bg-blue-800 text-white rounded-lg p-4 space-y-2">
+        <h2 class="text-xl font-semibold border-b border-blue-600 pb-1">Informes METAR</h2>
+        <!-- Carrasco referencia con captura Thum.io -->
+        <img src="https://image.thum.io/get/width/800/crop/220/https://metar-taf.com/es/SUMU" alt="METAR SUMU recortado" loading="lazy" class="w-full rounded" />
+        <!-- Otros aeropuertos embed-info -->
+        <iframe src="https://metar-taf.com/embed-info/SUDU" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SUSO" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SURV" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SUMO" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SUPU" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SUCA" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SULS" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SADF" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SAEZ" height="120" loading="lazy"></iframe>
+      </div>
 
-    <!-- Visor Windy abajo -->
-    <div class="card windy">
-      <h2>Windy: Lluvia, tormentas y viento en tiempo real</h2>
-      <iframe 
-        src="https://embed.windy.com/embed2.html?lat=-32.0&lon=-55.5&detailLat=-32.0&detailLon=-55.5&zoom=6&level=surface&overlay=rain&menu=&message=&marker=&calendar=now&type=map&location=coordinates&metricWind=default"
-        loading="lazy">
-      </iframe>
-    </div>
+      <!-- TAF de Carrasco y Ezeiza -->
+      <div class="bg-blue-700 text-white rounded-lg p-4 space-y-2">
+        <h2 class="text-xl font-semibold border-b border-blue-500 pb-1">Informes TAF</h2>
+        <iframe src="https://metar-taf.com/embed-info/SUMU?taf=1" height="200" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SAEZ?taf=1" height="200" loading="lazy"></iframe>
+      </div>
 
-  </div>
+    </section>
+
+    <!-- Panel derecho: Mapas Windy -->
+    <section class="space-y-4">
+      <div class="rounded-lg overflow-hidden shadow-lg">
+        <iframe 
+          src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&detailLat=-32.5&detailLon=-55.5&zoom=6&level=surface&overlay=rain&menu=true&message=true&marker=true&calendar=now&type=map&location=coordinates&metricWind=kt&metricTemp=%C2%B0C"
+          height="350"
+          loading="lazy">
+        </iframe>
+      </div>
+      <div class="rounded-lg overflow-hidden shadow-lg">
+        <iframe 
+          src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&detailLat=-32.5&detailLon=-55.5&zoom=6&level=surface&overlay=wind&menu=true&message=true&marker=true&calendar=now&type=map&location=coordinates&metricWind=kt&metricTemp=%C2%B0C"
+          height="350"
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="p-4 text-center text-gray-500 text-sm">
+    Datos obtenidos de metar-taf.com, Thum.io y Windy.com
+  </footer>
 </body>
 </html>
