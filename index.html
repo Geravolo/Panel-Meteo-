@@ -4,6 +4,86 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel Meteorológico GV</title>
+  <meta http-equiv="refresh" content="3600" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4">
+    <h1 class="text-2xl font-extrabold text-center text-blue-800">Panel Meteorológico GV</h1>
+    <p class="text-center text-sm text-blue-600">Datos en tiempo real - Actualiza cada hora</p>
+  </header>
+
+  <!-- Main Grid -->
+  <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+
+    <!-- Left: METAR Uruguay list -->
+    <aside class="col-span-1 bg-white rounded-lg shadow-inner overflow-y-auto p-4">
+      <h2 class="text-xl font-semibold mb-4 text-blue-800">METAR Uruguay</h2>
+      <div class="space-y-4">
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SUDU" height="100" loading="lazy"></iframe>
+        </div>
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SUSO" height="100" loading="lazy"></iframe>
+        </div>
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SURV" height="100" loading="lazy"></iframe>
+        </div>
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SUMO" height="100" loading="lazy"></iframe>
+        </div>
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SUPU" height="100" loading="lazy"></iframe>
+        </div>
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SUCA" height="100" loading="lazy"></iframe>
+        </div>
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SULS" height="100" loading="lazy"></iframe>
+        </div>
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SADF" height="100" loading="lazy"></iframe>
+        </div>
+        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+          <iframe src="https://metar-taf.com/embed-info/SAEZ" height="100" loading="lazy"></iframe>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right: SUMU reference and Windy -->
+    <section class="col-span-2 grid grid-rows-3 gap-6">
+      <!-- Row 1: METAR Carrasco (image) -->
+      <div class="row-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+        <h2 class="px-4 py-2 bg-blue-800 text-white font-semibold">METAR Carrasco (SUMU) - Referencia</h2>
+        <img src="https://image.thum.io/get/width/900/crop/240/https://metar-taf.com/es/SUMU" alt="METAR SUMU recortado" class="w-full" loading="lazy" />
+      </div>
+      <!-- Row 2: TAF Carrasco -->
+      <div class="row-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+        <h2 class="px-4 py-2 bg-blue-700 text-white font-semibold">TAF Carrasco (SUMU)</h2>
+        <iframe src="https://metar-taf.com/embed-info/SUMU?taf=1" height="200" loading="lazy"></iframe>
+      </div>
+      <!-- Row 3: Windy map -->
+      <div class="row-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+        <h2 class="px-4 py-2 bg-blue-600 text-white font-semibold">Windy: Lluvia & Viento</h2>
+        <iframe src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" height="300" loading="lazy"></iframe>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="bg-white text-center py-4 text-sm text-blue-500">
+    Datos de metar-taf.com • Captura Thum.io • Mapas Windy.com
+  </footer>
+</body>
+</html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Meteorológico GV</title>
   <!-- Actualización cada hora -->
   <meta http-equiv="refresh" content="3600" />
   <script src="https://cdn.tailwindcss.com"></script>
