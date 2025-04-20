@@ -3,78 +3,126 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Meteorológico GV</title>
-  <meta http-equiv="refresh" content="3600" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>METAR Uruguay + Windy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .metar-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .metar-card {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .highlight {
+      background: #d0eaff;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex flex-col">
+<body>
+  <h1>Informe METAR - Aeropuertos de Uruguay</h1>
+  <h2>Actualizado cada hora</h2>
+  <div id="metar" class="metar-container"></div>
 
-  <!-- Header -->
-  <header class="bg-white shadow-md py-4">
-    <h1 class="text-2xl font-extrabold text-center text-blue-800">Panel Meteorológico GV</h1>
-    <p class="text-center text-sm text-blue-600">Datos en tiempo real - Actualiza cada hora</p>
-  </header>
+  <h2>Mapa interactivo (Windy)</h2>
+  <iframe width="100%" height="450" src="https://embed.windy.com/embed2.html?lat=-32.7&lon=-56&detailLat=-32.7&detailLon=-56&width=650&height=450&zoom=6&level=surface&overlay=wind&menu=true&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=kt&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
 
-  <!-- Main Grid -->
-  <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+  <script>
+    const stations = {
+      "SUMU": "Carrasco",
+      "SUME": "Melilla",
+      "SULS": "Laguna del Sauce",
+      "SUAG": "Artigas",
+      "SUCA": "Colonia",
+      "SUDU": "Durazno",
+      "SUCM": "Carmelo",
+      "SUPU": "Paysandú",
+      "SUTB": "Tacuarembó",
+      "SUTR": "Treinta y Tres",
+      "SUVO": "Vichadero"
+    };
 
-    <!-- Left: METAR Uruguay list -->
-    <aside class="col-span-1 bg-white rounded-lg shadow-inner overflow-y-auto p-4">
-      <h2 class="text-xl font-semibold mb-4 text-blue-800">METAR Uruguay</h2>
-      <div class="space-y-4">
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SUDU" height="100" loading="lazy"></iframe>
-        </div>
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SUSO" height="100" loading="lazy"></iframe>
-        </div>
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SURV" height="100" loading="lazy"></iframe>
-        </div>
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SUMO" height="100" loading="lazy"></iframe>
-        </div>
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SUPU" height="100" loading="lazy"></iframe>
-        </div>
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SUCA" height="100" loading="lazy"></iframe>
-        </div>
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SULS" height="100" loading="lazy"></iframe>
-        </div>
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SADF" height="100" loading="lazy"></iframe>
-        </div>
-        <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-          <iframe src="https://metar-taf.com/embed-info/SAEZ" height="100" loading="lazy"></iframe>
-        </div>
-      </div>
-    </aside>
+    const metarDiv = document.getElementById("metar");
 
-    <!-- Right: SUMU reference and Windy -->
-    <section class="col-span-2 grid grid-rows-3 gap-6">
-      <!-- Row 1: METAR Carrasco (image) -->
-      <div class="row-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-        <h2 class="px-4 py-2 bg-blue-800 text-white font-semibold">METAR Carrasco (SUMU) - Referencia</h2>
-        <img src="https://image.thum.io/get/width/900/crop/240/https://metar-taf.com/es/SUMU" alt="METAR SUMU recortado" class="w-full" loading="lazy" />
-      </div>
-      <!-- Row 2: TAF Carrasco -->
-      <div class="row-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-        <h2 class="px-4 py-2 bg-blue-700 text-white font-semibold">TAF Carrasco (SUMU)</h2>
-        <iframe src="https://metar-taf.com/embed-info/SUMU?taf=1" height="200" loading="lazy"></iframe>
-      </div>
-      <!-- Row 3: Windy map -->
-      <div class="row-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-        <h2 class="px-4 py-2 bg-blue-600 text-white font-semibold">Windy: Lluvia & Viento</h2>
-        <iframe src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" height="300" loading="lazy"></iframe>
-      </div>
-    </section>
+    function parseMETAR(metar) {
+      const wind = metar.match(/(\d{3}|VRB)(\d{2,3})G?(\d{2,3})?KT/);
+      const clouds = metar.match(/(FEW|SCT|BKN|OVC)(\d{3})/g);
+      const visibility = metar.match(/ (\d{4}) /);
+      let text = "";
 
-  </div>
+      if (wind) {
+        const dir = wind[1] === "VRB" ? "Variable" : `${wind[1]}°`;
+        const speed = wind[2];
+        text += `Viento: ${dir} a ${speed} kt.\n`;
+      }
 
-  <footer class="bg-white text-center py-4 text-sm text-blue-500">
-    Datos de metar-taf.com • Captura Thum.io • Mapas Windy.com
-  </footer>
+      if (visibility) {
+        const vis = parseInt(visibility[1]);
+        text += `Visibilidad: ${vis} metros.\n`;
+      }
+
+      if (clouds) {
+        const cloudMap = {
+          FEW: "Pocas nubes",
+          SCT: "Nubes dispersas",
+          BKN: "Nublado",
+          OVC: "Cubierto"
+        };
+        text += "Cielo: ";
+        clouds.forEach(c => {
+          const type = c.slice(0, 3);
+          const height = parseInt(c.slice(3)) * 30.48;
+          text += `${cloudMap[type]} a ${Math.round(height)} m, `;
+        });
+        text = text.replace(/, $/, "\n");
+      }
+
+      return text || "No se pudo interpretar el METAR.";
+    }
+
+    async function fetchMETAR(station, highlight = false) {
+      try {
+        const res = await fetch(`https://tgftp.nws.noaa.gov/data/observations/metar/stations/${station}.TXT`);
+        const data = await res.text();
+        const lines = data.trim().split("\n");
+        const metar = lines[1];
+        const description = parseMETAR(metar);
+
+        const card = document.createElement("div");
+        card.className = "metar-card" + (highlight ? " highlight" : "");
+        card.innerHTML = `<h3>${stations[station]} (${station})</h3><pre>${description}</pre><small>${metar}</small>`;
+
+        if (highlight) {
+          metarDiv.prepend(card);
+        } else {
+          metarDiv.appendChild(card);
+        }
+      } catch (error) {
+        console.error("Error obteniendo METAR para", station);
+      }
+    }
+
+    function cargarTodos() {
+      metarDiv.innerHTML = "";
+      for (const station in stations) {
+        fetchMETAR(station, station === "SUMU");
+      }
+    }
+
+    cargarTodos();
+    setInterval(cargarTodos, 60 * 60 * 1000); // cada hora
+  </script>
 </body>
 </html>
