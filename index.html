@@ -94,7 +94,9 @@
 
     async function fetchMETAR(station, highlight = false) {
       try {
-        const res = await fetch(`https://tgftp.nws.noaa.gov/data/observations/metar/stations/${station}.TXT`);
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const metarUrl = `https://tgftp.nws.noaa.gov/data/observations/metar/stations/${station}.TXT`;
+        const res = await fetch(proxyUrl + encodeURIComponent(metarUrl));
         const data = await res.text();
         const lines = data.trim().split("\n");
         const metar = lines[1];
