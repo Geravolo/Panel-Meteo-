@@ -2,59 +2,89 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Panel Meteorológico - Uruguay</title>
-  <meta http-equiv="refresh" content="3600"> <!-- Refresca cada 1 hora -->
+  <title>Panel METAR Uruguay</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #0e1a2b;
-      color: #ecf0f1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: #f0f4f7;
+      margin: 0;
+      padding: 20px;
     }
     h1 {
-      margin: 20px 0;
-      color: #1abc9c;
+      text-align: center;
+      color: #2c3e50;
     }
-    .iframe-container {
-      width: 90%;
-      max-width: 1200px;
-      margin-bottom: 20px;
+    .metar-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
     }
     iframe {
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
     }
-    .metar {
-      height: 600px;
-    }
-    .windy {
-      height: 800px;
+    .title {
+      margin: 10px 0 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #34495e;
     }
   </style>
 </head>
 <body>
-  <h1>Panel Meteorológico - Uruguay</h1>
+  <h1>Panel METAR - Aeropuertos de Uruguay</h1>
 
-  <!-- METAR de Carrasco (SUMU) -->
-  <div class="iframe-container">
-    <iframe class="metar" src="https://metar-taf.com/es/SUMU" title="METAR Carrasco"></iframe>
-  </div>
-
-  <!-- METARs de Uruguay, San Fernando y Ezeiza -->
-  <div class="iframe-container">
-    <iframe class="metar" src="https://metar-taf.com/es/SUAA,SUAG,SUSO,SUMU,SUBU,SURV,SUCA,SULS,SUSJ,SUDU,SUCM,SUMO,SARF,SAEZ" title="METAR Regional"></iframe>
-  </div>
-
-  <!-- Mapa Windy centrado en Uruguay -->
-  <div class="iframe-container">
-    <iframe class="windy" src="https://embed.windy.com/embed2.html?lat=-33.5&lon=-56&detailLat=-33.5&detailLon=-56&width=650&height=450&zoom=6&level=surface&overlay=rain&menu=&message=&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default" title="Mapa Windy"></iframe>
+  <div class="metar-container">
+    <div>
+      <div class="title">Carrasco (SUMU)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUMU" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Punta del Este (SULS)</div>
+      <iframe src="https://metar-taf.com/embed-info/SULS" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Durazno (SUDU)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUDU" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Rivera (SURV)</div>
+      <iframe src="https://metar-taf.com/embed-info/SURV" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Salto (SUSO)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUSO" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Melo (SUMO)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUMO" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Tacuarembó (SUTB)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUTB" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Paysandú (SUPU)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUPU" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Treinta y Tres (SUTR)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUTR" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Artigas (SUAG)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUAG" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Colonia (SUCA)</div>
+      <iframe src="https://metar-taf.com/embed-info/SUCA" width="100%" height="220" frameborder="0"></iframe>
+    </div>
+    <div>
+      <div class="title">Rocha (SURR)</div>
+      <iframe src="https://metar-taf.com/embed-info/SURR" width="100%" height="220" frameborder="0"></iframe>
+    </div>
   </div>
 </body>
 </html>
-<iframe src="https://metar-taf.com/embed-info/SUMU" width="100%" height="200" frameborder="0"></iframe>
-<iframe src="https://metar-taf.com/embed-info/SUMU" width="100%" height="200" frameborder="0"></iframe>
