@@ -1,80 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Panel Meteo</title>
+  <meta charset="UTF-8">
+  <title>Panel Meteorológico - Uruguay</title>
+  <meta http-equiv="refresh" content="3600"> <!-- Refresca cada 1 hora -->
   <style>
-    :root {
-      --bg-color: #0e1a2b;
-      --primary-color: #1abc9c;
-      --text-color: #ecf0f1;
-      --card-bg: #1f2d3d;
-    }
-
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      background-color: #0e1a2b;
+      color: #ecf0f1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem;
     }
-
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
+    h1 {
+      margin: 20px 0;
+      color: #1abc9c;
     }
-
-    header h1 {
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
+    .iframe-container {
+      width: 90%;
+      max-width: 1200px;
+      margin-bottom: 20px;
     }
-
-    .card {
-      background-color: var(--card-bg);
+    iframe {
+      width: 100%;
+      border: none;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      padding: 1.5rem;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      margin-bottom: 1rem;
     }
-
-    .card h2 {
-      margin: 0;
-      color: var(--primary-color);
+    .metar {
+      height: 600px;
     }
-
-    .card p {
-      margin: 0.5rem 0 0;
-    }
-
-    footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #95a5a6;
+    .windy {
+      height: 800px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Panel Meteorológico</h1>
-    <p>Información básica del clima</p>
-  </header>
+  <h1>Panel Meteorológico - Uruguay</h1>
 
-  <div class="card">
-    <h2>Montevideo</h2>
-    <p>Temperatura: 22°C</p>
-    <p>Humedad: 65%</p>
-    <p>Viento: 15 km/h</p>
+  <!-- METAR de Carrasco (SUMU) -->
+  <div class="iframe-container">
+    <iframe class="metar" src="https://metar-taf.com/es/SUMU" title="METAR Carrasco"></iframe>
   </div>
 
-  <footer>
-    Desarrollado por Geravolo - GitHub Pages
-  </footer>
+  <!-- METARs de Uruguay, San Fernando y Ezeiza -->
+  <div class="iframe-container">
+    <iframe class="metar" src="https://metar-taf.com/es/SUAA,SUAG,SUSO,SUMU,SUBU,SURV,SUCA,SULS,SUSJ,SUDU,SUCM,SUMO,SARF,SAEZ" title="METAR Regional"></iframe>
+  </div>
+
+  <!-- Mapa Windy centrado en Uruguay -->
+  <div class="iframe-container">
+    <iframe class="windy" src="https://embed.windy.com/embed2.html?lat=-33.5&lon=-56&detailLat=-33.5&detailLon=-56&width=650&height=450&zoom=6&level=surface&overlay=rain&menu=&message=&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default" title="Mapa Windy"></iframe>
+  </div>
 </body>
 </html>
