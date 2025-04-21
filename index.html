@@ -20,6 +20,17 @@
     .clock {
       text-align: center;
       font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+    .divider {
+      width: 200px;
+      margin: 5px auto;
+      border-bottom: 1px solid #444;
+    }
+    .zulu-time {
+      text-align: center;
+      font-size: 1rem;
+      color: #aaa;
       margin-bottom: 20px;
     }
     .metar-container {
@@ -49,7 +60,9 @@
 </head>
 <body>
   <h1>Informe METAR - Aeropuertos de Uruguay</h1>
-  <div class="clock" id="clock">Cargando hora...</div>
+  <div class="clock" id="clock">Cargando hora local...</div>
+  <div class="divider"></div>
+  <div class="zulu-time" id="zulu">Cargando hora Zulu...</div>
   <h2>Actualizado cada hora</h2>
 
   <div id="metar" class="metar-container"></div>
@@ -152,8 +165,10 @@
     function actualizarReloj() {
       const ahora = new Date();
       const fecha = ahora.toLocaleDateString('es-UY', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-      const hora = ahora.toLocaleTimeString('es-UY');
-      document.getElementById("clock").textContent = `${fecha} - ${hora}`;
+      const horaLocal = ahora.toLocaleTimeString('es-UY', { hour12: false });
+      const zulu = ahora.toISOString().substring(11, 16) + 'Z';
+      document.getElementById("clock").textContent = `${fecha} - ${horaLocal}`;
+      document.getElementById("zulu").textContent = `Hora Zulu (UTC): ${zulu}`;
     }
 
     cargarTodos();
