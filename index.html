@@ -8,10 +8,10 @@
   <meta http-equiv="refresh" content="3600" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Ajustes adicionales */
     body { background: #eef2ff; }
     header, footer { background: #1e40af; color: #f8fafc; }
     iframe, img { border: none; display: block; width: 100%; }
+    a.external-link { display: inline-block; margin-top: 0.5rem; color: #1e3a8a; font-weight: 500; text-decoration: underline; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -25,6 +25,7 @@
     <aside class="bg-white rounded-lg shadow p-4 overflow-y-auto">
       <h2 class="text-xl font-semibold mb-4 text-blue-800">METAR Uruguay</h2>
       <div class="space-y-4">
+        <!-- Lista de METAR embed -->
         <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
           <iframe src="https://metar-taf.com/embed-info/SUDU" height="80" loading="lazy"></iframe>
         </div>
@@ -58,34 +59,26 @@
     <!-- Columna 2: Referencia SUMU y TAF -->
     <section class="flex flex-col space-y-6">
       <div class="bg-white rounded-lg shadow overflow-hidden">
-        <h2 class="bg-blue-600 text-white p-2 font-semibold">METAR Carrasco (SUMU)</h2>
-        <!-- Captura estilo ventana -->
-        <img src="https://image.thum.io/get/width/600/crop/200/https://metar-taf.com/es/SUMU" alt="METAR SUMU" loading="lazy" />
+        <h2 class="px-4 py-2 bg-blue-600 text-white font-semibold">METAR Carrasco (SUMU) - Referencia</h2>
+        <img src="https://image.thum.io/get/width/900/crop/240/https://metar-taf.com/es/SUMU" alt="METAR SUMU" class="w-full" loading="lazy" />
+        <!-- Enlace adicional a la vista completa -->
+        <a href="https://metar-taf.com/es/SUMU" target="_blank" class="external-link">Ver METAR completo en metar-taf.com</a>
       </div>
       <div class="bg-white rounded-lg shadow overflow-hidden">
-        <h2 class="bg-blue-500 text-white p-2 font-semibold">TAF Carrasco (SUMU)</h2>
+        <h2 class="px-4 py-2 bg-blue-500 text-white font-semibold">TAF Carrasco (SUMU)</h2>
         <iframe src="https://metar-taf.com/embed-info/SUMU?taf=1" height="160" loading="lazy"></iframe>
       </div>
     </section>
 
-    <!-- Columna 3: Windy Screenshot -->
+    <!-- Columna 3: Windy map -->
     <section class="bg-white rounded-lg shadow overflow-hidden flex flex-col">
-      <h2 class="bg-blue-400 text-white p-2 font-semibold">Windy – Lluvia & Viento</h2>
-      <!-- Captura de Windy -->
-      <img 
-        src="https://image.thum.io/get/width/600/crop/300/https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" 
-        alt="Mapa Windy" 
-        loading="lazy"
-      />
-      <a 
-        href="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" 
-        target="_blank" 
-        class="mt-auto text-center py-2 bg-blue-300 text-blue-900 font-medium hover:bg-blue-200"
-      >Ver en Windy.com</a>
+      <h2 class="px-4 py-2 bg-blue-400 text-white font-semibold">Windy – Lluvia & Viento</h2>
+      <img src="https://image.thum.io/get/width/600/crop/300/https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" alt="Mapa Windy" loading="lazy" />
+      <a href="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" target="_blank" class="mt-auto text-center py-2 bg-blue-300 text-blue-900 font-medium hover:bg-blue-200">Ver en Windy.com</a>
     </section>
   </main>
 
-  <footer class="py-4 text-center text-sm text-blue-700">
+  <footer class="py-4 text-center text-sm text-blue-700 bg-white">
     Datos de metar-taf.com • Capturas Thum.io • Mapas Windy.com
   </footer>
 </body>
