@@ -3,179 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DNAPN - Operaciones Aéreas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>Panel Meteorológico GV</title>
+  <!-- Refresca cada hora -->
+  <meta http-equiv="refresh" content="3600" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: #1e1e1e;
-      color: #e0e0e0;
-      padding: 20px;
-      margin: 0;
-    }
-    h1, h2 {
-      text-align: center;
-      margin: 10px 0;
-    }
-    .clock {
-      text-align: center;
-      font-size: 1.2rem;
-      margin-bottom: 5px;
-    }
-    .divider {
-      width: 200px;
-      margin: 5px auto;
-      border-bottom: 1px solid #444;
-    }
-    .zulu-time {
-      text-align: center;
-      font-size: 1rem;
-      color: #aaa;
-      margin-bottom: 20px;
-    }
-    .metar-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      margin: 20px 0;
-    }
-    .metar-card {
-      background: #2c2c2c;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease;
-    }
-    .metar-card:hover {
-      transform: scale(1.02);
-    }
-    .highlight {
-      border: 2px solid #00bfff;
-    }
-    iframe {
-      border-radius: 12px;
-      margin-top: 20px;
-    }
+    /* Ajustes adicionales */
+    body { background: #eef2ff; }
+    header, footer { background: #1e40af; color: #f8fafc; }
+    iframe, img { border: none; display: block; width: 100%; }
   </style>
 </head>
-<body>
-  <h1>DNAPN</h1>
-  <h2>Operaciones Aéreas</h2>
-  <div class="clock" id="clock">Cargando hora local...</div>
-  <div class="divider"></div>
-  <div class="zulu-time" id="zulu">Cargando hora Zulu...</div>
-  <h2>Actualizado cada hora</h2>
+<body class="flex flex-col min-h-screen">
+  <header class="py-4 text-center shadow-md">
+    <h1 class="text-2xl font-bold">Panel Meteorológico – Operaciones Aéreas</h1>
+    <p class="text-sm mt-1">Actualización automática cada hora</p>
+  </header>
 
-  <div id="metar" class="metar-container"></div>
+  <main class="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+    <!-- Columna 1: METAR Uruguay -->
+    <aside class="bg-white rounded-lg shadow p-4 overflow-y-auto">
+      <h2 class="text-xl font-semibold mb-4 text-blue-800">METAR Uruguay</h2>
+      <div class="space-y-4">
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SUDU" height="80" loading="lazy"></iframe>
+        </div>
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SUSO" height="80" loading="lazy"></iframe>
+        </div>
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SURV" height="80" loading="lazy"></iframe>
+        </div>
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SUMO" height="80" loading="lazy"></iframe>
+        </div>
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SUPU" height="80" loading="lazy"></iframe>
+        </div>
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SUCA" height="80" loading="lazy"></iframe>
+        </div>
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SULS" height="80" loading="lazy"></iframe>
+        </div>
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SADF" height="80" loading="lazy"></iframe>
+        </div>
+        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
+          <iframe src="https://metar-taf.com/embed-info/SAEZ" height="80" loading="lazy"></iframe>
+        </div>
+      </div>
+    </aside>
 
-  <h2>Mapa interactivo (Windy)</h2>
-  <iframe width="100%" height="450" src="https://embed.windy.com/embed2.html?lat=-34.85&lon=-56.17&detailLat=-34.85&detailLon=-56.17&width=650&height=450&zoom=10&level=surface&overlay=wind&menu=true&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=kt&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
+    <!-- Columna 2: Referencia SUMU y TAF -->
+    <section class="flex flex-col space-y-6">
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <h2 class="bg-blue-600 text-white p-2 font-semibold">METAR Carrasco (SUMU)</h2>
+        <!-- Captura estilo ventana -->
+        <img src="https://image.thum.io/get/width/600/crop/200/https://metar-taf.com/es/SUMU" alt="METAR SUMU" loading="lazy" />
+      </div>
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <h2 class="bg-blue-500 text-white p-2 font-semibold">TAF Carrasco (SUMU)</h2>
+        <iframe src="https://metar-taf.com/embed-info/SUMU?taf=1" height="160" loading="lazy"></iframe>
+      </div>
+    </section>
 
-  <script>
-    const stations = {
-      "SUMU": "Carrasco",
-      "SUAA": "Melilla",
-      "SULS": "Laguna del Sauce",
-      "SUAG": "Artigas",
-      "SUCA": "Colonia",
-      "SUDU": "Durazno",
-      "SUCM": "Carmelo",
-      "SUPU": "Paysandú",
-      "SUTB": "Tacuarembó",
-      "SUSO": "Salto",
-      
-    };
+    <!-- Columna 3: Windy Screenshot -->
+    <section class="bg-white rounded-lg shadow overflow-hidden flex flex-col">
+      <h2 class="bg-blue-400 text-white p-2 font-semibold">Windy – Lluvia & Viento</h2>
+      <!-- Captura de Windy -->
+      <img 
+        src="https://image.thum.io/get/width/600/crop/300/https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" 
+        alt="Mapa Windy" 
+        loading="lazy"
+      />
+      <a 
+        href="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" 
+        target="_blank" 
+        class="mt-auto text-center py-2 bg-blue-300 text-blue-900 font-medium hover:bg-blue-200"
+      >Ver en Windy.com</a>
+    </section>
+  </main>
 
-    const metarDiv = document.getElementById("metar");
-
-    function metersToMiles(m) {
-      return (m / 1609.34).toFixed(1);
-    }
-
-    function metersToFeet(m) {
-      return Math.round(m * 3.28084);
-    }
-
-    function parseMETAR(metar) {
-      const wind = metar.match(/(\d{3}|VRB)(\d{2,3})G?(\d{2,3})?KT/);
-      const clouds = metar.match(/(FEW|SCT|BKN|OVC)(\d{3})/g);
-      const visibility = metar.match(/ (\d{4}) /);
-      let text = "";
-
-      if (wind) {
-        const dir = wind[1] === "VRB" ? "Variable" : `${wind[1]}°`;
-        const speed = wind[2];
-        text += `Viento: ${dir} a ${speed} kt.\n`;
-      }
-
-      if (visibility) {
-        const vis = parseInt(visibility[1]);
-        text += `Visibilidad: ${metersToMiles(vis)} millas.\n`;
-      }
-
-      if (clouds) {
-        const cloudMap = {
-          FEW: "Pocas nubes",
-          SCT: "Nubes dispersas",
-          BKN: "Nublado",
-          OVC: "Cubierto"
-        };
-        text += "Cielo: ";
-        clouds.forEach(c => {
-          const type = c.slice(0, 3);
-          const heightFeet = parseInt(c.slice(3)) * 100;
-          text += `${cloudMap[type]} a ${heightFeet} pies, `;
-        });
-        text = text.replace(/, $/, "\n");
-      }
-
-      return text || "No se pudo interpretar el METAR.";
-    }
-
-    async function fetchMETAR(station, highlight = false) {
-      try {
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
-        const metarUrl = `https://tgftp.nws.noaa.gov/data/observations/metar/stations/${station}.TXT`;
-        const res = await fetch(proxyUrl + encodeURIComponent(metarUrl));
-        const data = await res.text();
-        const lines = data.trim().split("\n");
-        const metar = lines[1];
-        const description = parseMETAR(metar);
-
-        const card = document.createElement("div");
-        card.className = "metar-card" + (highlight ? " highlight" : "");
-        card.innerHTML = `<h3>${stations[station]} (${station})</h3><pre>${description}</pre><small>${metar}</small>`;
-
-        if (highlight) {
-          metarDiv.prepend(card);
-        } else {
-          metarDiv.appendChild(card);
-        }
-      } catch (error) {
-        console.error("Error obteniendo METAR para", station);
-      }
-    }
-
-    function cargarTodos() {
-      metarDiv.innerHTML = "";
-      for (const station in stations) {
-        fetchMETAR(station, station === "SUMU");
-      }
-    }
-
-    function actualizarReloj() {
-      const ahora = new Date();
-      const fecha = ahora.toLocaleDateString('es-UY', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-      const horaLocal = ahora.toLocaleTimeString('es-UY', { hour12: false });
-      const zulu = ahora.toISOString().substring(11, 16) + 'Z';
-      document.getElementById("clock").textContent = `${fecha} - ${horaLocal}`;
-      document.getElementById("zulu").textContent = `Hora Zulu (UTC): ${zulu}`;
-    }
-
-    cargarTodos();
-    setInterval(cargarTodos, 60 * 60 * 1000); // Actualizar cada hora
-    actualizarReloj();
-    setInterval(actualizarReloj, 1000); // Actualizar reloj cada segundo
-  </script>
+  <footer class="py-4 text-center text-sm text-blue-700">
+    Datos de metar-taf.com • Capturas Thum.io • Mapas Windy.com
+  </footer>
 </body>
 </html>
