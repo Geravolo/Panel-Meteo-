@@ -2,86 +2,80 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Panel Meteorológico GV</title>
-  <meta http‑equiv="refresh" content="3600"> <!-- recarga cada hora -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DNAPN - Panel Meteorológico</title>
+  <!-- Actualización automática cada hora -->
+  <meta http-equiv="refresh" content="3600" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background: #f0f2f5; color: #1e293b; }
-    header { background: #0f172a; color: #f1f5f9; }
-    /* Forzar que los iframes se adapten */
-    iframe { display: block; width: 100%; border: none; }
+    body { background-color: #0a0f24; color: #ffffff; }
+    header, footer { background-color: #04091d; }
+    .iframe-fixed { border: none; width: 100%; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
-
-  <header class="p-4 text-center">
-    <h1 class="text-2xl font-bold">Panel Meteorológico – Departamento de Operaciones Aéreas</h1>
-    <p class="text-sm text-gray-300">Actualización automática cada hora</p>
+  <!-- Header -->
+  <header class="py-4 text-center">
+    <h1 class="text-3xl font-bold">DNAPN</h1>
+    <div class="mt-2 space-x-4">
+      <!-- Reloj 24 horas local -->
+      <span id="local-clock" class="text-lg"></span>
+      <!-- Reloj aeronautico (UTC) -->
+      <span id="utc-clock" class="text-lg"></span>
+    </div>
   </header>
 
-  <main class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 p-4">
+  <!-- Main Layout -->
+  <main class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
 
-    <!-- IZQUIERDA: METAR + TAF -->
-    <section class="space-y-6">
+    <!-- Columna izquierda: METAR Uruguay -->
+    <aside class="space-y-4 overflow-y-auto">
+      <h2 class="text-2xl font-semibold mb-2">METAR Uruguay</h2>
+      <!-- Cada iframe muestra solo datos METAR -->
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUDU"></iframe>
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUSO"></iframe>
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SURV"></iframe>
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUMO"></iframe>
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUPU"></iframe>
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUCA"></iframe>
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SULS"></iframe>
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SADF"></iframe>
+      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SAEZ"></iframe>
+    </aside>
 
-      <!-- METAR URUGUAYOS Y ARGENTINA -->
-      <div class="bg-blue-800 text-white rounded-lg p-4 space-y-2">
-        <h2 class="text-xl font-semibold border-b border-blue-600 pb-1">Informes METAR</h2>
-
-        <!-- Carrasco de referencia -->
-        <iframe src="https://metar-taf.com/embed-info/SUMU" height="200" loading="lazy"></iframe>
-        <!-- Resto de Uruguay -->
-        <iframe src="https://metar-taf.com/embed-info/SUDU" height="120" loading="lazy"></iframe>
-        <iframe src="https://metar-taf.com/embed-info/SUSO" height="120" loading="lazy"></iframe>
-        <iframe src="https://metar-taf.com/embed-info/SURV" height="120" loading="lazy"></iframe>
-        <iframe src="https://metar-taf.com/embed-info/SUMO" height="120" loading="lazy"></iframe>
-        <iframe src="https://metar-taf.com/embed-info/SUPU" height="120" loading="lazy"></iframe>
-        <iframe src="https://metar-taf.com/embed-info/SUCA" height="120" loading="lazy"></iframe>
-        <iframe src="https://metar-taf.com/embed-info/SULS" height="120" loading="lazy"></iframe>
-        <iframe src="https://metar-taf.com/embed-info/SADF" height="120" loading="lazy"></iframe>
-        <iframe src="https://metar-taf.com/embed-info/SAEZ" height="120" loading="lazy"></iframe>
+    <!-- Columna derecha: Carrasco y Windy -->
+    <section class="flex flex-col gap-4">
+      <!-- METAR y TAF de Carrasco arriba -->
+      <div class="bg-gray-900 p-4 rounded-lg space-y-4">
+        <h2 class="text-2xl font-semibold">SUMU - Carrasco</h2>
+        <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUMU"></iframe>
+        <iframe class="iframe-fixed h-32" src="https://metar-taf.com/embed-info/SUMU?taf=1"></iframe>
       </div>
-
-      <!-- TAF -->
-      <div class="bg-blue-700 text-white rounded-lg p-4 space-y-2">
-        <h2 class="text-xl font-semibold border-b border-blue-500 pb-1">Informes TAF</h2>
-        <!-- Carrasco -->
-        <iframe src="https://metar-taf.com/es/SUMU?taf=1" height="200" loading="lazy"></iframe>
-        <!-- Ezeiza -->
-        <iframe src="https://metar-taf.com/es/SAEZ?taf=1" height="200" loading="lazy"></iframe>
+      <!-- Windy mapa lluvia y viento abajo -->
+      <div class="flex-1 bg-gray-900 p-2 rounded-lg">
+        <iframe class="iframe-fixed h-full"
+          src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates"
+        ></iframe>
       </div>
-
     </section>
-
-    <!-- DERECHA: MAPAS WINDY -->
-    <section class="space-y-4">
-
-      <!-- Tormentas y lluvias -->
-      <div class="rounded-lg overflow-hidden shadow-lg">
-        <iframe 
-          src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&detailLat=-32.5&detailLon=-55.5&zoom=6&level=surface&overlay=rain&menu=true&message=true&marker=true&calendar=now&type=map&location=coordinates&metricWind=kt&metricTemp=%C2%B0C"
-          height="350"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <!-- Viento y pronóstico -->
-      <div class="rounded-lg overflow-hidden shadow-lg">
-        <iframe 
-          src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&detailLat=-32.5&detailLon=-55.5&zoom=6&level=surface&overlay=wind&menu=true&message=true&marker=true&calendar=now&type=map&location=coordinates&metricWind=kt&metricTemp=%C2%B0C"
-          height="350"
-          loading="lazy">
-        </iframe>
-      </div>
-
-    </section>
-
   </main>
 
-  <footer class="p-4 text-center text-gray-500 text-sm">
-    Datos obtenidos de metar-taf.com y Windy.com
+  <!-- Footer -->
+  <footer class="py-4 text-center">
+    <p class="text-sm">Datos en tiempo real - Actualizado cada hora</p>
   </footer>
 
+  <!-- Scripts de reloj -->
+  <script>
+    function updateClocks() {
+      const now = new Date();
+      // Local 24h
+      document.getElementById('local-clock').textContent = now.toLocaleTimeString('es-UY', { hour12: false });
+      // UTC aeronautica (Zulu)
+      document.getElementById('utc-clock').textContent = now.toISOString().substr(11, 8) + ' Z';
+    }
+    updateClocks();
+    setInterval(updateClocks, 1000);
+  </script>
 </body>
 </html>
