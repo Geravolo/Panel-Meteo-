@@ -4,82 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel Meteorológico GV</title>
-  <!-- Refresca cada hora -->
+  <!-- Refresca automáticamente cada hora -->
   <meta http-equiv="refresh" content="3600" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background: #eef2ff; }
-    header, footer { background: #1e40af; color: #f8fafc; }
-    iframe, img { border: none; display: block; width: 100%; }
-    a.external-link { display: inline-block; margin-top: 0.5rem; color: #1e3a8a; font-weight: 500; text-decoration: underline; }
+    body { background: #f0f2f5; color: #1e293b; }
+    header { background: #0f172a; color: #f1f5f9; }
+    iframe, img { display: block; width: 100%; border: none; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
-  <header class="py-4 text-center shadow-md">
-    <h1 class="text-2xl font-bold">Panel Meteorológico – Operaciones Aéreas</h1>
-    <p class="text-sm mt-1">Actualización automática cada hora</p>
+  <header class="p-4 text-center">
+    <h1 class="text-2xl font-bold">Panel Meteorológico – Departamento de Operaciones Aéreas</h1>
+    <p class="text-sm text-gray-300">Actualización automática cada hora</p>
   </header>
 
-  <main class="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
-    <!-- Columna 1: METAR Uruguay -->
-    <aside class="bg-white rounded-lg shadow p-4 overflow-y-auto">
-      <h2 class="text-xl font-semibold mb-4 text-blue-800">METAR Uruguay</h2>
-      <div class="space-y-4">
-        <!-- Lista de METAR embed -->
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SUDU" height="80" loading="lazy"></iframe>
-        </div>
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SUSO" height="80" loading="lazy"></iframe>
-        </div>
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SURV" height="80" loading="lazy"></iframe>
-        </div>
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SUMO" height="80" loading="lazy"></iframe>
-        </div>
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SUPU" height="80" loading="lazy"></iframe>
-        </div>
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SUCA" height="80" loading="lazy"></iframe>
-        </div>
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SULS" height="80" loading="lazy"></iframe>
-        </div>
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SADF" height="80" loading="lazy"></iframe>
-        </div>
-        <div class="border-l-4 border-blue-400 bg-blue-50 p-2 rounded">
-          <iframe src="https://metar-taf.com/embed-info/SAEZ" height="80" loading="lazy"></iframe>
-        </div>
-      </div>
-    </aside>
+  <main class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 p-4">
 
-    <!-- Columna 2: Referencia SUMU y TAF -->
-    <section class="flex flex-col space-y-6">
-      <div class="bg-white rounded-lg shadow overflow-hidden">
-        <h2 class="px-4 py-2 bg-blue-600 text-white font-semibold">METAR Carrasco (SUMU) - Referencia</h2>
-        <img src="https://image.thum.io/get/width/900/crop/240/https://metar-taf.com/es/SUMU" alt="METAR SUMU" class="w-full" loading="lazy" />
-        <!-- Enlace adicional a la vista completa -->
-        <a href="https://metar-taf.com/es/SUMU" target="_blank" class="external-link">Ver METAR completo en metar-taf.com</a>
+    <!-- Panel izquierdo: METARs y TAF -->
+    <section class="space-y-6">
+
+      <!-- METARs Uruguay + Argentinas -->
+      <div class="bg-blue-800 text-white rounded-lg p-4 space-y-2">
+        <h2 class="text-xl font-semibold border-b border-blue-600 pb-1">Informes METAR</h2>
+        <!-- Carrasco referencia con captura Thum.io -->
+        <img src="https://image.thum.io/get/width/800/crop/220/https://metar-taf.com/es/SUMU"
+             alt="METAR SUMU recortado" loading="lazy" class="w-full rounded" />
+        <!-- Otros aeropuertos embed-info -->
+        <iframe src="https://metar-taf.com/embed-info/SUDU" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SUSO" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SURV" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SUMO" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SUPU" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SUCA" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SULS" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SADF" height="120" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SAEZ" height="120" loading="lazy"></iframe>
       </div>
-      <div class="bg-white rounded-lg shadow overflow-hidden">
-        <h2 class="px-4 py-2 bg-blue-500 text-white font-semibold">TAF Carrasco (SUMU)</h2>
-        <iframe src="https://metar-taf.com/embed-info/SUMU?taf=1" height="160" loading="lazy"></iframe>
+
+      <!-- TAF de Carrasco y Ezeiza -->
+      <div class="bg-blue-700 text-white rounded-lg p-4 space-y-2">
+        <h2 class="text-xl font-semibold border-b border-blue-500 pb-1">Informes TAF</h2>
+        <iframe src="https://metar-taf.com/embed-info/SUMU?taf=1" height="200" loading="lazy"></iframe>
+        <iframe src="https://metar-taf.com/embed-info/SAEZ?taf=1" height="200" loading="lazy"></iframe>
+      </div>
+
+    </section>
+
+    <!-- Panel derecho: Mapas Windy -->
+    <section class="space-y-4">
+      <div class="rounded-lg overflow-hidden shadow-lg">
+        <iframe 
+          src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&detailLat=-32.5&detailLon=-55.5&zoom=6&level=surface&overlay=rain&menu=true&message=true&marker=true&calendar=now&type=map&location=coordinates&metricWind=kt&metricTemp=%C2%B0C"
+          height="350"
+          loading="lazy">
+        </iframe>
+      </div>
+      <div class="rounded-lg overflow-hidden shadow-lg">
+        <iframe 
+          src="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&detailLat=-32.5&detailLon=-55.5&zoom=6&level=surface&overlay=wind&menu=true&message=true&marker=true&calendar=now&type=map&location=coordinates&metricWind=kt&metricTemp=%C2%B0C"
+          height="350"
+          loading="lazy">
+        </iframe>
       </div>
     </section>
 
-    <!-- Columna 3: Windy map -->
-    <section class="bg-white rounded-lg shadow overflow-hidden flex flex-col">
-      <h2 class="px-4 py-2 bg-blue-400 text-white font-semibold">Windy – Lluvia & Viento</h2>
-      <img src="https://image.thum.io/get/width/600/crop/300/https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" alt="Mapa Windy" loading="lazy" />
-      <a href="https://embed.windy.com/embed2.html?lat=-32.5&lon=-55.5&zoom=6&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" target="_blank" class="mt-auto text-center py-2 bg-blue-300 text-blue-900 font-medium hover:bg-blue-200">Ver en Windy.com</a>
-    </section>
   </main>
 
-  <footer class="py-4 text-center text-sm text-blue-700 bg-white">
-    Datos de metar-taf.com • Capturas Thum.io • Mapas Windy.com
+  <footer class="p-4 text-center text-gray-500 text-sm">
+    Datos obtenidos de metar-taf.com, Thum.io y Windy.com
   </footer>
 </body>
 </html>
