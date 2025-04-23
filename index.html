@@ -1,82 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DNAPN - Panel Meteorológico</title>
-  <!-- Actualización automática cada hora -->
-  <meta http-equiv="refresh" content="3600" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>DNAPN - Información Meteorológica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
   <style>
-    body { background-color: #0a0f24; color: #ffffff; }
-    header, footer { background-color: #04091d; }
-    .iframe-fixed { border: none; width: 100%; }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0f24;
+      color: #ffffff;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+    }
+    .left-panel {
+      width: 30%;
+      padding: 20px;
+      overflow-y: auto;
+      border-right: 1px solid #1e2a3a;
+    }
+    .right-panel {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #1e2a3a;
+    }
+    .top-bar h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .clock {
+      font-size: 18px;
+    }
+    .metar-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .metar-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #1e2a3a;
+    }
+    .metar-label {
+      font-weight: bold;
+      color: #00bfff;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .metar-data {
+      color: #ffffff;
+    }
+    .iframe-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .iframe-top {
+      height: 33%;
+      border-bottom: 1px solid #1e2a3a;
+    }
+    .iframe-middle {
+      height: 33%;
+      border-bottom: 1px solid #1e2a3a;
+    }
+    .iframe-bottom {
+      height: 34%;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
   </style>
 </head>
-<body class="flex flex-col min-h-screen">
-  <!-- Encabezado -->
-  <header class="py-4 text-center">
-    <h1 class="text-3xl font-bold">DNAPN</h1>
-    <div class="mt-2 space-x-4">
-      <!-- Reloj local 24h -->
-      <span id="local-clock" class="text-lg"></span>
-      <!-- Reloj UTC (Zulu) -->
-      <span id="utc-clock" class="text-lg"></span>
+<body>
+  <div class="left-panel">
+    <h2>METAR Uruguay</h2>
+    <ul class="metar-list">
+      <li class="metar-item">
+        <span class="metar-label">SUMU Carrasco</span>
+        <span class="metar-data">230600Z 36004KT CAVOK 17/14 Q1012 NOSIG</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUDU Santa Bernardina</span>
+        <span class="metar-data">251400Z 11009KT 9999 BKN020 SCT200 23/18 Q1020</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUSO Salto</span>
+        <span class="metar-data">231200Z 13004KT CAVOK 15/13 Q1014</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SURV Rivera</span>
+        <span class="metar-data">170600Z 24003KT 0300 FG NSC 11/11 Q1015</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUMO Melo</span>
+        <span class="metar-data">180000Z AUTO 04004KT CAVOK 17/13 Q1013</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUPU Paysandú</span>
+        <span class="metar-data">Datos no disponibles actualmente</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUCA Colonia</span>
+        <span class="metar-data">141200Z 23004KT 210V320 7000 SCT010 BKN080 17/16 Q1020</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SULS Punta del Este</span>
+        <span class="metar-data">221000Z 35003KT CAVOK 15/14 Q1017</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SADF San Fernando</span>
+        <span class="metar-data">180600Z 00000KT CAVOK 15/14 Q1014</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SAEZ Ezeiza</span>
+        <span class="metar-data">230700Z 30002KT CAVOK 18/15 Q1011 NOSIG</span>
+      </li>
+    </ul>
+  </div>
+  <div class="right-panel">
+    <div class="top-bar">
+      <h1>DNAPN</h1>
+      <div class="clock" id="clock">00:00 UTC</div>
     </div>
-  </header>
-
-  <!-- Contenido principal -->
-  <main class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
-    <!-- Columna izquierda: METARs de Uruguay -->
-    <aside class="space-y-4 overflow-y-auto">
-      <h2 class="text-2xl font-semibold mb-2">METAR Uruguay</h2>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUDU" sandbox="allow-same-origin allow-scripts"></iframe>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUSO" sandbox="allow-same-origin allow-scripts"></iframe>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SURV" sandbox="allow-same-origin allow-scripts"></iframe>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUMO" sandbox="allow-same-origin allow-scripts"></iframe>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUPU" sandbox="allow-same-origin allow-scripts"></iframe>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SUCA" sandbox="allow-same-origin allow-scripts"></iframe>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SULS" sandbox="allow-same-origin allow-scripts"></iframe>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SADF" sandbox="allow-same-origin allow-scripts"></iframe>
-      <iframe class="iframe-fixed h-24" src="https://metar-taf.com/embed-info/SAEZ" sandbox="allow-same-origin allow-scripts"></iframe>
-    </aside>
-
-    <!-- Columna derecha: Carrasco y Windy -->
-    <section class="flex flex-col gap-4">
-      <!-- METAR de Carrasco como imagen -->
-      <div class="bg-gray-900 p-4 rounded-lg">
-        <h2 class="text-2xl font-semibold mb-2">METAR Carrasco (SUMU)</h2>
-        <img src="https://image.thum.io/get/width/900/crop/240/https://metar-taf.com/es/SUMU" alt="METAR SUMU recortado" class="w-full" loading="lazy" />
+    <div class="iframe-container">
+      <div class="iframe-top">
+        <!-- Imagen recortada del METAR de Carrasco -->
+        <iframe src="https://metar-taf.com/SUMU" title="METAR Carrasco"></iframe>
       </div>
-      <!-- TAF de Carrasco -->
-      <div class="bg-gray-900 p-4 rounded-lg">
-        <h2 class="text-2xl font-semibold mb-2">TAF Carrasco (SUMU)</h2>
-        <iframe class="iframe-fixed h-32" src="https://metar-taf.com/embed-info/SUMU?taf=1" sandbox="allow-same-origin allow-scripts"></iframe>
+      <div class="iframe-middle">
+        <!-- TAF de Carrasco en un iframe -->
+        <iframe src="https://metar-taf.com/SUMU" title="TAF Carrasco"></iframe>
       </div>
-      <!-- Visor Windy -->
-      <div class="flex-1 bg-gray-900 p-2 rounded-lg">
-        <h2 class="text-2xl font-semibold mb-2">Windy – Lluvia & Viento</h2>
-        <iframe class="iframe-fixed h-full" src="https://embed.windy.com/embed2.html?lat=-34.9011&lon=-56.1645&zoom=10&level=surface&overlay=rain&windVectors=true&type=map&location=coordinates" sandbox="allow-same-origin allow-scripts"></iframe>
-      </div>
-    </section>
-  </main>
-
-  <!-- Pie de página -->
-  <footer class="py-4 text-center">
-    <p class="text-sm">Datos en tiempo real - Actualizado cada hora</p>
-  </footer>
-
-  <!-- Scripts de reloj -->
-  <script>
-    function updateClocks() {
-      const now = new Date();
-      // Reloj local 24h
-      document.getElementById('local-clock').textContent = now.toLocaleTimeString('es-UY', { hour12: false });
-      // Reloj UTC (Zulu)
-      document.getElementById('utc-clock').textContent = now.toISOString().substr(11, 8) + ' Z';
-    }
-    updateClocks();
-    setInterval(updateClocks, 1000);
-  </script>
-</body>
-</html>
+      <div class="iframe-bottom">
+        <!-- Visor Windy centrado en Montevideo -->
+        <iframe src="https://embed.windy.com/embed2.html?lat=-34.9011&lon=-56.1645&detailLat=-34.9011&detailLon=-56.1645&width=650&height=450&zoom=7&level=surface&overlay=rain&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" title="Windy Montevideo"></iframe>
+     
+::contentReference[oaicite:1]{index=1}
+ 
