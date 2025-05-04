@@ -2,111 +2,149 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>DNAPN – Información Meteorológica</title>
+  <title>DNAPN - Información Meteorológica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
   <style>
     body {
-      background-color: #222;
-      color: #fff;
-      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-    }
-    h1 {
-      text-align: center;
-      margin: 10px;
-    }
-    /* Contenedor de relojes */
-    #clocks {
+      background-color: #0a0f24;
+      color: #ffffff;
+      font-family: 'Courier New', monospace;
       display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin: 20px 0;
+      flex-direction: row;
+      height: 100vh;
+    }
+    .left-panel {
+      width: 30%;
+      padding: 20px;
+      overflow-y: auto;
+      border-right: 1px solid #1e2a3a;
+    }
+    .right-panel {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #1e2a3a;
+    }
+    .top-bar h1 {
+      margin: 0;
+      font-size: 24px;
     }
     .clock {
-      font-size: 1.2em;
+      font-size: 18px;
     }
-    .clock-label {
+    .metar-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .metar-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #1e2a3a;
+    }
+    .metar-label {
       font-weight: bold;
-      margin-right: 5px;
-    }
-    /* Sección de METARs */
-    .metar-section {
-      width: 90%;
-      max-width: 800px;
-      margin: 0 auto 20px auto;
-    }
-    .metar-box {
-      background-color: #24497F;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-    .metar-title {
-      font-size: 1.1em;
+      color: #00bfff;
+      display: block;
       margin-bottom: 5px;
     }
-    .metar-content {
-      font-family: monospace;
+    .metar-data {
+      color: #ffffff;
+    }
+    .iframe-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .iframe-top {
+      height: 33%;
+      border-bottom: 1px solid #1e2a3a;
+    }
+    .iframe-middle {
+      height: 33%;
+      border-bottom: 1px solid #1e2a3a;
+    }
+    .iframe-bottom {
+      height: 34%;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
 <body>
-  <h1>DEPARTAMENTO DE OPERACIONES AÉREAS – INFORMACIÓN METEOROLÓGICA</h1>
-
-  <!-- Relojes digitales -->
-  <div id="clocks">
-    <div class="clock"><span class="clock-label">Uruguay:</span><span id="clock-uruguay"></span></div>
-    <div class="clock"><span class="clock-label">Zulu (UTC):</span><span id="clock-zulu"></span></div>
+  <div class="left-panel">
+    <h2>METAR Uruguay</h2>
+    <ul class="metar-list">
+      <li class="metar-item">
+        <span class="metar-label">SUMU Carrasco</span>
+        <span class="metar-data">230600Z 36004KT CAVOK 17/14 Q1012 NOSIG</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUDU Santa Bernardina</span>
+        <span class="metar-data">251400Z 11009KT 9999 BKN020 SCT200 23/18 Q1020</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUSO Salto</span>
+        <span class="metar-data">231200Z 13004KT CAVOK 15/13 Q1014</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SURV Rivera</span>
+        <span class="metar-data">170600Z 24003KT 0300 FG NSC 11/11 Q1015</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUMO Melo</span>
+        <span class="metar-data">180000Z AUTO 04004KT CAVOK 17/13 Q1013</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUPU Paysandú</span>
+        <span class="metar-data">Datos no disponibles actualmente</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SUCA Colonia</span>
+        <span class="metar-data">141200Z 23004KT 210V320 7000 SCT010 BKN080 17/16 Q1020</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SULS Punta del Este</span>
+        <span class="metar-data">221000Z 35003KT CAVOK 15/14 Q1017</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SADF San Fernando</span>
+        <span class="metar-data">180600Z 00000KT CAVOK 15/14 Q1014</span>
+      </li>
+      <li class="metar-item">
+        <span class="metar-label">SAEZ Ezeiza</span>
+        <span class="metar-data">230700Z 30002KT CAVOK 18/15 Q1011 NOSIG</span>
+      </li>
+    </ul>
   </div>
-
-  <!-- Sección de METARs -->
-  <div class="metar-section">
-    <!-- METAR Carrasco (SUMU) – aparece solo una vez -->
-    <div class="metar-box">
-      <div class="metar-title">METAR Carrasco (SUMU) - Referencia</div>
-      <div class="metar-content" id="metar-sumu">
-        SUMU METAR 062000Z 17004KT CAVOK 20/14 Q1016 NOSIG
+  <div class="right-panel">
+    <div class="top-bar">
+      <h1>DNAPN</h1>
+      <div class="clock" id="clock">00:00 UTC</div>
+    </div>
+    <div class="iframe-container">
+      <div class="iframe-top">
+        <!-- Imagen recortada del METAR de Carrasco -->
+        <iframe src="https://metar-taf.com/SUMU" title="METAR Carrasco"></iframe>
       </div>
-    </div>
-    <!-- Ejemplo de otros METAR -->
-    <div class="metar-box">
-      <div class="metar-title">METAR Durazno (SUDU)</div>
-      <div class="metar-content">SUDU METAR 062000Z 10006KT 9999 FEW040 20/15 Q1020 NOSIG</div>
-    </div>
-    <div class="metar-box">
-      <div class="metar-title">METAR Salto (SUSO)</div>
-      <div class="metar-content">SUSO METAR 062000Z 11009KT 9999 SCT020 23/13 Q1018</div>
-    </div>
-    <!-- Agregar aquí más bloques de METAR según sea necesario -->
-  </div>
+      <div class="iframe-middle">
+        <!-- TAF de Carrasco en un iframe -->
+        <iframe src="https://metar-taf.com/SUMU" title="TAF Carrasco"></iframe>
+      </div>
+      <div class="iframe-bottom">
+        <!-- Visor Windy centrado en Montevideo -->
+        <iframe src="https://embed.windy.com/embed2.html?lat=-34.9011&lon=-56.1645&detailLat=-34.9011&detailLon=-56.1645&width=650&height=450&zoom=7&level=surface&overlay=rain&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" title="Windy Montevideo"></iframe>
+     
+::contentReference[oaicite:1]{index=1}
 
-  <script>
-    // Función para actualizar los relojes cada segundo
-    function updateClocks() {
-      const now = new Date();
-      // Opciones para formato 24h con dos dígitos
-      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      // Hora local (Montevideo, Uruguay)
-      document.getElementById('clock-uruguay').textContent = 
-        now.toLocaleTimeString('es-UY', { timeZone: 'America/Montevideo', ...options });
-      // Hora Zulu (UTC)
-      document.getElementById('clock-zulu').textContent = 
-        now.toLocaleTimeString('en-GB', { timeZone: 'UTC', ...options });
-    }
-    // Iniciar actualización de relojes
-    setInterval(updateClocks, 1000);
-    updateClocks();
-
-    // Recarga la página puntualmente al comenzar cada hora
-    (function scheduleHourlyReload() {
-      const now = new Date();
-      // Fijar la siguiente hora en punto (minuto 0, segundo 0)
-      const nextHour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1, 0, 0, 0);
-      const timeToNextHour = nextHour.getTime() - now.getTime();
-      setTimeout(function() {
-        location.reload();
-      }, timeToNextHour);
-    })();
-  </script>
-</body>
-</html>
