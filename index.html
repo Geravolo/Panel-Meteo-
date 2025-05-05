@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>DNAPN - Información Meteorológica</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="dark light">
+  <meta charset="UTF-8" />
+  <title>METEO OPERACIONES AÉREAS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
   <style>
     body {
       margin: 0;
@@ -29,17 +29,27 @@
     }
     .top-bar {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
       padding: 10px 20px;
       background-color: #1e2a3a;
+      text-align: center;
     }
     .top-bar h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .top-bar .subtitle {
+      font-size: 12px;
+      color: #cccccc;
+      margin-top: 4px;
     }
     .clock {
-      font-size: 18px;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 8px;
     }
     .metar-list {
       list-style: none;
@@ -65,15 +75,11 @@
       flex-direction: column;
     }
     .iframe-top {
-      height: 33%;
-      border-bottom: 1px solid #1e2a3a;
-    }
-    .iframe-middle {
-      height: 33%;
+      flex: 1;
       border-bottom: 1px solid #1e2a3a;
     }
     .iframe-bottom {
-      height: 34%;
+      flex: 1;
     }
     iframe {
       width: 100%;
@@ -81,6 +87,36 @@
       border: none;
     }
   </style>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const utc = now.toUTCString().slice(17, 25);
+      const uyHours = (now.getUTCHours() + 21) % 24;
+      const uyTime = `${String(uyHours).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      document.getElementById('clock').innerHTML = `Uruguay: ${uyTime} | Zulu: ${utc}`;
+    }
+
+    function scheduleReload() {
+      const now = new Date();
+      const nextReload = new Date(now);
+      nextReload.setMinutes(6);
+      nextReload.setSeconds(0);
+      nextReload.setMilliseconds(0);
+
+      if (now.getMinutes() >= 6) {
+        nextReload.setHours(now.getHours() + 1);
+      }
+
+      const timeout = nextReload - now;
+      setTimeout(() => location.reload(), timeout);
+    }
+
+    window.onload = () => {
+      updateClock();
+      setInterval(updateClock, 1000);
+      scheduleReload();
+    };
+  </script>
 </head>
 <body>
   <div class="left-panel">
@@ -130,17 +166,18 @@
   </div>
   <div class="right-panel">
     <div class="top-bar">
-      <h1>DNAPN</h1>
+      <h1>METEO OPERACIONES AÉREAS</h1>
+      <div class="subtitle">Creado por Gerardo Volontè</div>
       <div class="clock" id="clock">00:00 UTC</div>
     </div>
     <div class="iframe-container">
       <div class="iframe-top">
-        <!-- Imagen recortada del METAR de Carrasco -->
-        <iframe src="https://metar-taf.com/SUMU" title="METAR Carrasco"></iframe>
+        <iframe src="https://metar-taf.com/SUMU" title="METAR y TAF Carrasco"></iframe>
       </div>
       <div class="iframe-bottom">
-        <!-- Visor Windy centrado en Montevideo -->
         <iframe src="https://embed.windy.com/embed2.html?lat=-34.9011&lon=-56.1645&detailLat=-34.9011&detailLon=-56.1645&width=650&height=450&zoom=7&level=surface&overlay=rain&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" title="Windy Montevideo"></iframe>
-     
-::contentReference[oaicite:1]{index=1}
-
+      </div>
+    </div>
+  </div>
+</body>
+</html>
